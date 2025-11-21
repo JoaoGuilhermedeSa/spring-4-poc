@@ -15,11 +15,9 @@ public class ExternalProvisionClient {
 
     @ConcurrencyLimit(10)
     public String callProvisionApi(String id) {
-        // For demo keep this blocking/simple; in real code prefer reactive chain
         try {
             return restTemplate.getForObject("https://example-provision-service.local/external/provision/{id}", String.class, id);
         } catch (Exception ex) {
-            // Simulate transient failure
             throw new RuntimeException("External call failed: " + ex.getMessage(), ex);
         }
     }
